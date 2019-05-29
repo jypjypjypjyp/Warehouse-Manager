@@ -7,6 +7,8 @@ namespace MyWMS.Models
     {
         public int Id { get; set; }
         public DateTime Time { get; set; }
+        public int WarehouseId { get; set; }
+        public Warehouse Warehouse { get; set; }
         public int KeeperId { get; set; }
         public Keeper Keeper { get; set; }
         public int SalesmanId { get; set; }

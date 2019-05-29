@@ -3,15 +3,53 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="MainWindow - Copy.xaml" />
-    <None Remove="Views\Login.xaml" />
+    <Compile Remove="Migrations\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Migrations\**" />
+    <Page Remove="Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="MainWindow - Copy.xaml" />
+    <None Remove="MyDictionary.xaml" />
+    <None Remove="Resources\Images\addwarehouse.png" />
+    <None Remove="Resources\Images\alert.png" />
+    <None Remove="Resources\Images\item.png" />
+    <None Remove="Resources\Images\lock.png" />
+    <None Remove="Resources\Images\login.png" />
+    <None Remove="Resources\Images\phone.png" />
+    <None Remove="Resources\Images\user.png" />
+    <None Remove="Resources\Images\warehouse.png" />
+    <None Remove="Views\DealView.xaml" />
+    <None Remove="Views\InfoDialog.xaml" />
+    <None Remove="Views\ItemView.xaml" />
+    <None Remove="Views\KeeperInfoView.xaml" />
+    <None Remove="Views\KeeperView.xaml" />
+    <None Remove="Views\LoginView.xaml" />
+    <None Remove="Views\NewItemDialog.xaml" />
+    <None Remove="Views\NewWarehouseEntryDialog.xaml" />
+    <None Remove="Views\ProgressDialog.xaml" />
+    <None Remove="Views\SalemanView.xaml" />
+    <None Remove="Views\SetPasswordDialog.xaml" />
+    <None Remove="Views\WarehouseView.xaml" />
+    <None Remove="WarehouseCard.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Migrations\20190529021531_Update.cs" />
+    <Compile Include="Migrations\20190529021531_Update.designer.cs" />
+    <Compile Include="Migrations\20190529034104_Update2.cs" />
+    <Compile Include="Migrations\20190529034104_Update2.designer.cs" />
+    <Compile Include="Migrations\MyDbContextModelSnapshot.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0316" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0-preview5.19227.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0-preview5.19227.1">
       <PrivateAssets>all</PrivateAssets>
@@ -26,7 +64,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Views\Login.xaml">
+    <Page Update="Views\SetPasswordDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ProgressDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ItemView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DealView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SalemanView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\KeeperView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\KeeperInfoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WarehouseView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\LoginView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
@@ -35,7 +97,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <Folder Include="Controls\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\addwarehouse.png" />
+    <Resource Include="Resources\Images\alert.png" />
+    <Resource Include="Resources\Images\item.png" />
+    <Resource Include="Resources\Images\lock.png" />
+    <Resource Include="Resources\Images\login.png" />
+    <Resource Include="Resources\Images\phone.png" />
+    <Resource Include="Resources\Images\user.png" />
+    <Resource Include="Resources\Images\warehouse.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\模板.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="wms.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

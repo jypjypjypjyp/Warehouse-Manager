@@ -1,0 +1,58 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                    xmlns:helpers="clr-namespace:MyWMS.Helpers">
+
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <helpers:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+
+    <Style x:Key="ControlVisibilityWipeStyle" TargetType="{x:Type Control}">
+
+        <Setter Property="Opacity" Value="0.5" />
+
+        <Style.Triggers>
+            <Trigger Property="IsVisible" Value="true">
+
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                  To="1" Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                  To="0.5" Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="{x:Type DataGrid}">
+        <Setter Property="ColumnHeaderStyle" Value="{DynamicResource ColumnHeaderStyle}"/>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+    <!-- DataGridColumnHeader style -->
+    <Style x:Key="ColumnHeaderStyle" TargetType="DataGridColumnHeader">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Background" Value="LightBlue"/>
+        <Setter Property="FontSize" Value="20" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="ToolTip" Value="点击排序"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="RedButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Background" Value="Red"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+</ResourceDictionary>

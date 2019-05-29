@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="MyWMS.Views.WarehouseDetail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:views="clr-namespace:MyWMS.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="530" d:DesignWidth="770">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="210"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <Label 
+            Content="{Binding Title}" FontSize="24"/>
+            <Button Height="40" Width="100"
+                Command="{Binding AbandonCommand}"
+                Style="{StaticResource RedButtonStyle}"
+                Content="弃用" FontSize="20"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal">
+            <Button Height="40" Width="100"
+                Click="ToDeal_Click"
+                Content="详细订单" FontSize="20"/>
+            <Button Margin="10,0,0,0"
+                Height="40" Width="100"
+                Click="Close_Click"
+                Content="关闭" FontSize="20"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+            <Button Height="40" Width="100"
+                Click="Add_Click"
+                Content="添加" FontSize="20"/>
+            <Button Height="40" Width="100" Margin="10,0,0,0"
+                Command="{Binding ResetCommand}"
+                Content="重置" FontSize="20"/>
+        </StackPanel>
+
+        <Button Grid.Row="5" Grid.Column="3" 
+                HorizontalAlignment="Right"
+                Height="40" Width="100"
+                Command="{Binding ConfirmCommand}"
+                Content="确认" FontSize="20"/>
+
+        <DataGrid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5"
+                  AutoGenerateColumns="False" ItemsSource="{Binding WarehouseEntries}">
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="编号" Binding="{Binding Item.Id}" FontSize="20" IsReadOnly="True"/>
+                <DataGridTextColumn Header="商品名称" Binding="{Binding Item.Name}" FontSize="20" IsReadOnly="True"/>
+                <DataGridTextColumn Header="规格" Binding="{Binding Item.Specification}" FontSize="20" IsReadOnly="True"/>
+                <DataGridTextColumn Header="单位" Binding="{Binding Item.Unit}" FontSize="20" IsReadOnly="True"/>
+                <metro:DataGridNumericUpDownColumn Header="数量" Binding="{Binding Amount}"
+                                                StringFormat="F" FontSize="20"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</UserControl>

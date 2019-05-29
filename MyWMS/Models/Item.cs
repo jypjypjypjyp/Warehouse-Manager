@@ -8,7 +8,11 @@ namespace MyWMS.Models
         public string Name { get; set; }
         public string Specification { get; set; }
         public string Unit { get; set; }
+        public bool Available { get; set; }
         public virtual ICollection<WarehouseEntry> WarehouseEntries { get; set; }
         public virtual ICollection<DealEntry> DealEntries { get; set; }
+
+        public override string ToString()
+            => Specification == null ? $"{Name}" : $"{Name}({Specification})";
     }
 }

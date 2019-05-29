@@ -8,6 +8,7 @@ namespace MyWMS.Models
         public string Name { get; set; }
         public string Contact { get; set; }
         public string Password { get; set; }
+        public bool Available { get; set; }
         public virtual ICollection<Deal> Deals { get; set; }
     }
 }
