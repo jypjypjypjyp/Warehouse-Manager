@@ -1,12 +1,12 @@
 ﻿<UserControl x:Class="MyWMS.Views.LoginView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:helper="clr-namespace:MyWMS.Helpers"
+      xmlns:helpers="clr-namespace:MyWMS.Helpers"
       TextElement.FontSize="20"
       TextElement.FontFamily="YaHei">
 
     <UserControl.Resources>
-        <helper:MultiParamConverter x:Key="MultiParamConverter"/>
+        <helpers:MultiParamConverter x:Key="MultiParamConverter"/>
     </UserControl.Resources>
     
     <Grid  HorizontalAlignment="Center"

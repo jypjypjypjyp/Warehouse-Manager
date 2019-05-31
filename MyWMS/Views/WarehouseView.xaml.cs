@@ -1,22 +1,23 @@
 ﻿using MyWMS.ViewModels;
 using System.Windows.Controls;
 using System;
-using System.Linq;
 using System.Windows;
+using MyWMS.Helpers;
 
 namespace MyWMS.Views
 {
-    public partial class WarehouseView : UserControl
+    public partial class WarehouseView : TabView
     {
-        private WarehouseViewModel vm;
+        public WarehouseViewModel VM { get; set; }
         public WarehouseView()
         {
             SizeChanged += OnSizeChanged;
-            vm = new WarehouseViewModel(this);
-            DataContext = vm;
+            VM = new WarehouseViewModel(this);
+            DataContext = VM;
             InitializeComponent();
             WarehouseDetail.Owner = this;
-            vm.InitAsync();
+            VM.InitAsync();
+            Init(null);
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -27,19 +28,13 @@ namespace MyWMS.Views
             WarehouseDetail.Height = 0.8/1.5 * MainWindowViewModel.Instance.Owner.RealTimeHeight;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void ToDetail(object p)
         {
             BackDrop.Visibility = Visibility.Visible;
             WarehouseDetail.Visibility = Visibility.Visible;
-            
-            var button = sender as Button;
-            var id = int.Parse(
-                ((button.Content as Grid)
-                .Children.Cast<UIElement>()
-                .Where(a => a is TextBlock)
-                .FirstOrDefault() as TextBlock)
-                .Text);
-            WarehouseDetail.InitAsync(id);
+
+            int id = (int)p;
+            WarehouseDetail.VM.InitAsync(id);
         }
 
         private void BackDrop_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -53,10 +48,13 @@ namespace MyWMS.Views
             WarehouseDetail.Visibility = Visibility.Collapsed;
         }
 
-        public void Refresh()
+        public override void Init(object p)
         {
-            vm.InitAsync();
+            if (p == null) return;
+            BackDrop.Visibility = Visibility.Visible;
+            WarehouseDetail.Visibility = Visibility.Visible;
+            var id = (int)p;
+            WarehouseDetail.VM.InitAsync(id);
         }
-
     }
 }

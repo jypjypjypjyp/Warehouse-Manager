@@ -1,25 +1,30 @@
-﻿using MyWMS.ViewModels;
-using System.Windows.Controls;
+﻿using MyWMS.Helpers;
+using MyWMS.ViewModels;
 
 namespace MyWMS.Views
 {
-    public partial class ItemView : UserControl
+    public partial class ItemView : TabView
     {
-        private ItemViewModel vm;
+        public ItemViewModel VM { get; set; }
         public ItemView()
         {
-            vm = new ItemViewModel(this);
-            DataContext = vm;
+            VM = new ItemViewModel(this);
+            DataContext = VM;
             InitializeComponent();
-            vm.InitAsync();
+            VM.InitAsync();
+            Init(null);
         }
 
         public void DataIncorrect()
         {
             new InfoDialog("输入有误!", true)
             {
-                Cancel = vm.InitAsync
+                Cancel = VM.InitAsync
             }.Show();
+        }
+
+        public override void Init(object p)
+        {
         }
     }
 }

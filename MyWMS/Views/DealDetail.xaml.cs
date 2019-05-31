@@ -4,21 +4,28 @@ using System.Windows.Controls;
 
 namespace MyWMS.Views
 {
-    public partial class WarehouseDetail : UserControl
+    public partial class DealDetail : UserControl
     {
-        public WarehouseView Owner { get; set; }
+        public DealView Owner { get; set; }
+        public int Id { get; set; }
 
-        public WarehouseDetailViewModel VM { get; set; }
-        public WarehouseDetail()
+        public DealDetailViewModel VM { get; set; }
+        public DealDetail()
         {
-            VM = new WarehouseDetailViewModel(this);
+            VM = new DealDetailViewModel(this);
             DataContext = VM;
             InitializeComponent();
         }
 
+        public void InitAsync(bool editable, int id)
+        {
+            Id = id;
+            VM.InitAsync(id);
+        }
+
         private void ToDeal_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            MainWindowViewModel.Instance.Owner.Navigate(TabViewType.Deal, (TabViewType.Warehouse, VM.Id));
+            MainWindowViewModel.Instance.Owner.Navigate(TabViewType.Deal, (TabViewType.Warehouse, Id));
         }
 
         private void Close_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -35,7 +42,7 @@ namespace MyWMS.Views
         {
             new InfoDialog("数量不能为复数！", true)
             {
-                Cancel = () => VM.InitAsync(VM.Id)
+                Cancel = () => VM.InitAsync(Id)
             }.Show();
         }
     }

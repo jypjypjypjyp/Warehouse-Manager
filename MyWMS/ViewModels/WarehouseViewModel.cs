@@ -1,7 +1,6 @@
 ﻿using MyWMS.Helpers;
 using MyWMS.Models;
 using MyWMS.Views;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -18,15 +17,16 @@ namespace MyWMS.ViewModels
 
         #region Commands
         public ICommand AddCommand { get; set; }
+        public ICommand ToDetailCommand { get; set; }
         #endregion
 
-        private int maxId;
         private readonly WarehouseView owner;
         public WarehouseViewModel(WarehouseView owner)
         {
             this.owner = owner;
             Warehouses = new ObservableCollection<Warehouse>();
             AddCommand = DelegateCommand.Create(Add);
+            ToDetailCommand = DelegateCommand.Create(owner.ToDetail);
         }
 
         public async void InitAsync()
@@ -42,13 +42,12 @@ namespace MyWMS.ViewModels
             {
                 if (i.Available)
                     Warehouses.Add(i);
-                maxId = Math.Max(maxId, i.Id);
             }
         }
 
         private async void Add(object p)
         {
-            var w = new Warehouse() { Id = ++maxId, Available = true };
+            var w = new Warehouse() { Available = true };
             using var db = MyDbContext.Instance;
             db.Warehouses.Add(w);
             await db.SaveChangesAsync();

@@ -1,18 +1,28 @@
-﻿using MyWMS.ViewModels;
-using System.Windows.Controls;
+﻿using MyWMS.Helpers;
+using MyWMS.ViewModels;
 
 namespace MyWMS.Views
 {
-    public partial class SalemanView : UserControl
+    public partial class SalemanView : TabView
     {
-        private SalemanViewModel vm;
+        public SalemanViewModel VM { get; set; }
         public SalemanView()
         {
-            vm = new SalemanViewModel(this);
-            DataContext = vm;
+            VM = new SalemanViewModel(this);
+            DataContext = VM;
             InitializeComponent();
-            vm.InitAsync();
+            VM.InitAsync();
+            Init(null);
         }
 
+        public override void Init(object p)
+        {
+        }
+
+        public void ToDeal(object p)
+        {
+            int id = (int)p;
+            MainWindowViewModel.Instance.Owner.Navigate(TabViewType.Deal, (TabViewType.Salesman, id));
+        }
     }
 }

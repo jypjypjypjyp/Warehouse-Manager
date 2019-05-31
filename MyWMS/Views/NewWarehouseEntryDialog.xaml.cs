@@ -19,7 +19,7 @@ namespace MyWMS.Views
                     Items.Add(i);
             }
             InitializeComponent();
-            MessageLabel.Content = "仓库" + owner.Id;
+            MessageLabel.Content = "仓库" + owner.VM.Id;
         }
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -31,7 +31,7 @@ namespace MyWMS.Views
             }
             var item = ItemSplitBtn.SelectedItem as Item;
             double amount = (double)AmountNumUD.Value;
-            owner.AddEntry(item, amount);
+            owner.VM.AddEntry(item, amount);
             Close();
         }
     }

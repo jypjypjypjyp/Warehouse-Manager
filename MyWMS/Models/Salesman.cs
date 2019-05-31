@@ -9,5 +9,10 @@ namespace MyWMS.Models
         public bool Available { get; set; }
 
         public virtual ICollection<Deal> Deals { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

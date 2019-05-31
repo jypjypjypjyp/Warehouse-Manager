@@ -4,7 +4,6 @@
                     xmlns:helpers="clr-namespace:MyWMS.Helpers">
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    <helpers:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
 
     <Style x:Key="ControlVisibilityWipeStyle" TargetType="{x:Type Control}">
 

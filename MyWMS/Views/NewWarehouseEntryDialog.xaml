@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:views="clr-namespace:MyWMS.Views"
-        TextElement.FontSize="20"
         Title="添加库存"
         SizeToContent="WidthAndHeight" 
         ShowInTaskbar="False"
@@ -28,21 +27,22 @@
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="MessageLabel"/>
+        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="MessageLabel" FontSize="20"/>
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-            <Label Content="商品" VerticalAlignment="Center"/>
+            <Label Content="商品" VerticalAlignment="Center" FontSize="20"/>
             <metro:SplitButton Name="ItemSplitBtn"
                 HorizontalContentAlignment="Left"
                 HorizontalAlignment="Center"
                 VerticalContentAlignment="Center"
                 Width="150" FontSize="20" Height="40"
+                               SelectedItem=""
                 ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type views:NewWarehouseEntryDialog}}, Path=Items}"
                 VerticalAlignment="Center" />
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="3" Orientation="Horizontal">
-            <Label Content="数量" VerticalAlignment="Center"/>
+            <Label Content="数量" VerticalAlignment="Center" FontSize="20"/>
             <metro:NumericUpDown Name="AmountNumUD"
                 Width="150" FontSize="20" Height="40"
                 StringFormat="F" Interval = "1"/>

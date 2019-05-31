@@ -1,8 +1,90 @@
-﻿<UserControl x:Class="MyWMS.Views.DealView"
+﻿<helpers:TabView x:Class="MyWMS.Views.DealView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Height="555" Width="800">
-    <Grid>
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:helpers="clr-namespace:MyWMS.Helpers"
+      xmlns:views="clr-namespace:MyWMS.Views"
+      mc:Ignorable="d"
+      d:DesignHeight="555" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <helpers:BooleanToInOrOutConverter x:Key="BooleanToInOrOutConverter"/>
+    </UserControl.Resources>
+    <Canvas Name="DetailCanvas">
+        <Rectangle Canvas.Left="0" Canvas.Top="0" Visibility="Collapsed"
+                   Name="BackDrop" Fill="Gray" Opacity="0.5"
+                   Width="{Binding Parent.ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}" 
+                   Height="{Binding Parent.ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" 
+                   Panel.ZIndex="100" MouseUp="BackDrop_MouseUp"/>
+        <views:DealDetail Visibility="Collapsed"
+              x:Name="DealDetail" Background="AliceBlue" Panel.ZIndex="200"
+              Style="{StaticResource ControlVisibilityWipeStyle}"/>
         
-    </Grid>
-</UserControl>
+        <DockPanel Margin="5,5,5,5">
+            <DockPanel DockPanel.Dock="Top" Height="85" >
+                <StackPanel DockPanel.Dock="Left" Height="50" VerticalAlignment="Top" Orientation="Horizontal">
+                    <Image VerticalAlignment="Center"
+               Source="/Resources/Images/item.png"/>
+                    <Label Content="订单列表" FontSize="24"/>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Right">
+                    <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+                        <Label Content="仓库" FontSize="24"/>
+                        <metro:SplitButton ItemsSource="{Binding Warehouses}"
+                                   SelectedItem="{Binding SelectedWarehouse}"
+                                   HorizontalContentAlignment="Left"
+                                   HorizontalAlignment="Center"
+                                   VerticalContentAlignment="Center"
+                                   Width="150" FontSize="20" Height="40"
+                                   VerticalAlignment="Center" />
+                        <Label Content="销售人员" FontSize="24"/>
+                        <metro:SplitButton ItemsSource="{Binding Salesmen}"
+                                   SelectedItem="{Binding SelectedSalesman}"
+                                   HorizontalContentAlignment="Left"
+                                   HorizontalAlignment="Center"
+                                   VerticalContentAlignment="Center"
+                                   Width="150" FontSize="20" Height="40"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+                        <Label Content="日期范围：从" FontSize="24"/>
+                        <DatePicker SelectedDate="{Binding FromDateTime}" Height="32" FontSize="18"
+                            VerticalAlignment = "Center"/>
+                        <Label Content="到" FontSize="24"/>
+                        <DatePicker SelectedDate="{Binding ToDateTime}" Height="32" FontSize="18"
+                            VerticalAlignment = "Center"/>
+                    </StackPanel>
+                </StackPanel>
+
+            </DockPanel>
+
+            <DockPanel DockPanel.Dock="Bottom">
+                <Button DockPanel.Dock="Left" Height="40" Width="100" Margin="10,0,0,0"
+                Command="{Binding AddCommand}"
+                Content="新建交易" FontSize="20"/>
+            </DockPanel>
+
+            <DataGrid AutoGenerateColumns="False" CanUserAddRows="True"
+                  ItemsSource="{Binding Deals}" Margin="0,5,0,5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="订单Id" Binding="{Binding Id}" FontSize="20"/>
+                    <DataGridTextColumn Header="日期" Binding="{Binding Time}" FontSize="20"/>
+                    <DataGridTextColumn Header="仓库Id" Binding="{Binding WarehouseId}" FontSize="20"/>
+                    <DataGridTextColumn Header="销售人员Id" Binding="{Binding SalesmanId}" FontSize="20"/>
+                    <DataGridTextColumn Header="入/出库" Binding="{Binding InOrOut, Converter={StaticResource BooleanToInOrOutConverter}}" FontSize="20"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding Path=DataContext.ToDetailCommand, RelativeSource= {RelativeSource FindAncestor, AncestorType={x:Type helpers:TabView}}}" 
+                                    CommandParameter="{Binding Id}"  Content="详细内容"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Canvas>
+</helpers:TabView>

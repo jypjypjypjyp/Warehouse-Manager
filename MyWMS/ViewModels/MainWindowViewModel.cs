@@ -41,8 +41,6 @@ namespace MyWMS.ViewModels
             get => _StatusText;
             set => SetProperty(ref _StatusText, "Status: " + value);
         }
-
-        public object Parameter { get; set; }
         #endregion
     }
 }

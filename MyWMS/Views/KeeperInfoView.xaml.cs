@@ -1,17 +1,18 @@
-﻿using MyWMS.ViewModels;
-using System.Windows.Controls;
+﻿using MyWMS.Helpers;
+using MyWMS.ViewModels;
 
 namespace MyWMS.Views
 {
-    public partial class KeeperInfoView : UserControl
+    public partial class KeeperInfoView : TabView
     {
-        private KeeperInfoViewModel vm;
+        public KeeperInfoViewModel VM { get; set; }
         public KeeperInfoView()
         {
-            vm = new KeeperInfoViewModel(this);
-            DataContext = vm;
+            VM = new KeeperInfoViewModel(this);
+            DataContext = VM;
             InitializeComponent();
-            vm.Init();
+            VM.Init();
+            Init(null);
         }
 
         private void SetPassword_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -22,6 +23,10 @@ namespace MyWMS.Views
         private void Delete_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             MainWindowViewModel.Instance.Owner.ShowLogin();
+        }
+
+        public override void Init(object p)
+        {
         }
     }
 }

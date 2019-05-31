@@ -1,15 +1,12 @@
 ﻿using MahApps.Metro.Controls;
+using MyWMS.Helpers;
 using MyWMS.ViewModels;
-using System.Threading.Tasks;
+using MyWMS.Views;
 using System.Windows;
 using System.Windows.Media;
 
 namespace MyWMS
 {
-    public enum ViewType
-    {
-        Warehouse, Deal, Item, Saleman, Keeper, KeeperInfo
-    }
     public partial class MainWindow : MetroWindow
     {
         public double RealTimeWidth { get; set; }
@@ -51,32 +48,32 @@ namespace MyWMS
             KeeperInfoTab.Header = name;
         }
 
-        public void Navigate(ViewType type, object p = null)
+        public void Navigate(TabViewType type, object p = null)
         {
-            MainWindowViewModel.Instance.Parameter = p;
             switch (type)
             {
-                case ViewType.Warehouse:
+                case TabViewType.Warehouse:
                     ViewControl.SelectedItem = WarehouseTab;
                     break;
-                case ViewType.Deal:
+                case TabViewType.Deal:
                     ViewControl.SelectedItem = DealTab;
                     break;
-                case ViewType.Item:
+                case TabViewType.Item:
                     ViewControl.SelectedItem = ItemTab;
                     break;
-                case ViewType.Saleman:
+                case TabViewType.Salesman:
                     ViewControl.SelectedItem = SalemanTab;
                     break;
-                case ViewType.Keeper:
+                case TabViewType.Keeper:
                     ViewControl.SelectedItem = KeeperTab;
                     break;
-                case ViewType.KeeperInfo:
+                case TabViewType.KeeperInfo:
                     ViewControl.SelectedItem = KeeperInfoTab;
                     break;
                 default:
                     break;
             }
+            ViewControl.FindChild<TabView>().Init(p);
         }
     }
 }

@@ -22,6 +22,12 @@ namespace MyWMS
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Warehouse>().Property(p => p.Id).ValueGeneratedOnAdd();
+            builder.Entity<Keeper>().Property(p => p.Id).ValueGeneratedOnAdd();
+            builder.Entity<Salesman>().Property(p => p.Id).ValueGeneratedOnAdd();
+            builder.Entity<Item>().Property(p => p.Id).ValueGeneratedOnAdd();
+            builder.Entity<Deal>().Property(p => p.Id).ValueGeneratedOnAdd();
+
             builder.Entity<Warehouse>().HasKey(a => a.Id);
 
             builder.Entity<WarehouseEntry>().HasKey(a => new { a.WarehouseId, a.ItemId });

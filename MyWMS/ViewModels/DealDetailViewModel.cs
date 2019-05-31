@@ -10,25 +10,41 @@ using System.Windows.Input;
 
 namespace MyWMS.ViewModels
 {
-    public class WarehouseDetailViewModel : ViewModelBase
+    public class DealDetailViewModel : ViewModelBase
     {
         #region Properties
         public string Title
         {
-            get => "仓库： " + _Id;
+            get => $"编号： XK-000-{_Deal?.Time.Year}-{_Deal?.Time.Month}-{_Deal?.Time.Day}-{_Deal.Id} 仓库ID： {_Deal.WarehouseId} 销售人员ID：{_Deal.SalesmanId}";
         }
-        private int _Id;
-        public int Id
+
+        private Deal _Deal;
+        public Deal Deal
         {
-            get => _Id;
+            get => _Deal;
             set
             {
-                SetProperty(ref _Id, value, "Title");
-                SetProperty(ref _Id, value, "Id");
+                SetProperty(ref _Deal, value, "Deal");
+                SetProperty(ref _Deal, value, "Title");
             }
         }
 
-        public ObservableCollection<WarehouseEntry> WarehouseEntries { get; set; }
+        public bool InverseEditable
+        {
+            get => !Editable;
+        }
+        private bool _Editable;
+        public bool Editable
+        {
+            get => _Editable;
+            set
+            {
+                SetProperty(ref _Editable, value, "Editable");
+                SetProperty(ref _Editable, value, "InverseEditable");
+            }
+        }
+
+        public ObservableCollection<DealEntry> DealEntries { get; set; }
         #endregion
 
         #region Command
@@ -38,31 +54,38 @@ namespace MyWMS.ViewModels
         #endregion
 
 
-        private readonly WarehouseDetail owner;
-        public WarehouseDetailViewModel(WarehouseDetail owner)
+        private readonly DealDetail owner;
+        public DealDetailViewModel(DealDetail owner)
         {
             this.owner = owner;
-            WarehouseEntries = new ObservableCollection<WarehouseEntry>();
+            DealEntries = new ObservableCollection<DealEntry>();
             ConfirmCommand = DelegateCommand.Create(Commit);
             ResetCommand = DelegateCommand.Create(o => InitAsync(Id));
             AbandonCommand = DelegateCommand.Create(Abandon);
         }
 
-        public async void InitAsync(int id)
+        public async void InitAsync(bool editable, int id)
         {
-            WarehouseEntries.Clear();
-            Id = id;
-            IEnumerable<WarehouseEntry> allWarehouse = null;
-            using var db = MyDbContext.Instance;
-            await Task.Run(() =>
+            DealEntries.Clear();
+            if (editable)
             {
-                allWarehouse = db.WarehouseEntries.Include(a => a.Item).Where(a => a.WarehouseId == id).AsEnumerable();
-            });
-            foreach (var i in allWarehouse)
-            {
-                WarehouseEntries.Add(i);
+
             }
-            MainWindowViewModel.Instance.StatusText = "载入成功！";
+            else
+            {
+                IEnumerable<WarehouseEntry> allWarehouse = null;
+                using var db = MyDbContext.Instance;
+                await Task.Run(() =>
+                {
+                    allWarehouse = db.WarehouseEntries.Include(a => a.Item).Where(a => a.WarehouseId == id).AsEnumerable();
+                });
+                foreach (var i in allWarehouse)
+                {
+                    WarehouseEntries.Add(i);
+                }
+                MainWindowViewModel.Instance.StatusText = "载入成功！";
+            }
+            
         }
 
         public void AddEntry(Item item, double amount)

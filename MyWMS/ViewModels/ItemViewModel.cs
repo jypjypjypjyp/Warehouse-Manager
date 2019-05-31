@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Windows.Input;
-using System;
 
 namespace MyWMS.ViewModels
 {
@@ -22,7 +21,6 @@ namespace MyWMS.ViewModels
         public ICommand DeleteCommand { get; set; }
         #endregion
 
-        private int maxId;
         private readonly ItemView owner;
         public ItemViewModel(ItemView owner)
         {
@@ -45,8 +43,7 @@ namespace MyWMS.ViewModels
             foreach (var i in allItems)
             {
                 if (i.Available)
-                    Items.Add(i); ;
-                maxId = Math.Max(maxId, i.Id);
+                    Items.Add(i);
             }
             MainWindowViewModel.Instance.StatusText = "载入成功！";
         }
@@ -66,7 +63,6 @@ namespace MyWMS.ViewModels
                     }
                     else
                     {
-                        i.Id = ++maxId;
                         i.Available = true;
                         db.Items.Add(i);
                     }
@@ -79,6 +75,7 @@ namespace MyWMS.ViewModels
 
         public void Delete(object p)
         {
+            if (p == null) return;
             int id = (int)p;
             new InfoDialog("您确认删除此商品吗？原有的记录不会改变，但是不能再进行交易。", true)
             {

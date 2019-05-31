@@ -37,10 +37,10 @@
                     </DataTemplate>
                 </TabItem.ContentTemplate>
             </TabItem>
-            <TabItem Name="DealTab" Header="交易" >
+            <TabItem Name="DealTab" Header="订单" >
                 <TabItem.ContentTemplate>
                     <DataTemplate>
-                        <views:DealView/>
+                        <views:DealView x:Name="DealViewInstance"/>
                     </DataTemplate>
                 </TabItem.ContentTemplate>
             </TabItem>
