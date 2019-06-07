@@ -1,0 +1,76 @@
+﻿<metro:MetroWindow x:Class="MyWMS.Views.NewDealEntryDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:views="clr-namespace:MyWMS.Views"
+        Title="添加库存"
+        SizeToContent="WidthAndHeight" 
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid Margin="10,5,10,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="添加条目" FontSize="20"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+            <Label Content="商品" VerticalAlignment="Center" FontSize="20"/>
+            <metro:SplitButton Name="ItemSplitBtn"
+                HorizontalContentAlignment="Left"
+                HorizontalAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="150" FontSize="20" Height="40"
+                               SelectedItem=""
+                ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type views:NewDealEntryDialog}}, Path=Items}"
+                VerticalAlignment="Center" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+            <Label Content="数量" VerticalAlignment="Center" FontSize="20"/>
+            <metro:NumericUpDown Name="AmountNumUD"
+                Width="150" FontSize="20" Height="40"
+                StringFormat="F" Interval = "1" Minimum="0"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
+            <Label Content="单价" VerticalAlignment="Center" FontSize="20"/>
+            <metro:NumericUpDown Name="PriceNumUD"
+                Width="150" FontSize="20" Height="40"
+                StringFormat="C" Interval = "1" Minimum="0"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="4" Grid.Column="2" Orientation="Horizontal">
+            <Label Content="折扣" VerticalAlignment="Center" FontSize="20"/>
+            <metro:NumericUpDown Name="OffNumUD"
+                Width="150" FontSize="20" Height="40"
+                Maximum="100" Minimum="0" Value="0"
+                StringFormat="F" Interval = "1"/>
+        </StackPanel>
+
+        <DockPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
+            <Label DockPanel.Dock="Left" Content="备注" VerticalAlignment="Center" FontSize="20"/>
+            <TextBox Name="NoteBox" FontSize="20" VerticalAlignment="Center"/>
+        </DockPanel>
+        
+        <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" 
+                Margin="50,0,50,0" Click="Button_Click"
+                Content="确认" FontSize="20"/>
+
+    </Grid>
+</metro:MetroWindow>

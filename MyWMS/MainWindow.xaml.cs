@@ -2,6 +2,10 @@
 using MyWMS.Helpers;
 using MyWMS.ViewModels;
 using MyWMS.Views;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -9,6 +13,7 @@ namespace MyWMS
 {
     public partial class MainWindow : MetroWindow
     {
+        public double Zoom { get; set; }
         public double RealTimeWidth { get; set; }
         public double RealTimeHeight { get; set; }
 
@@ -25,12 +30,19 @@ namespace MyWMS
         }
         public MainWindow()
         {
+            Task.Run(() =>
+            {
+                var files = Directory.GetFiles(Environment.CurrentDirectory, "*.xps", SearchOption.TopDirectoryOnly);
+                foreach (string file in files)
+                    File.Delete(file);
+            });
             Loaded += OnLoaded;
             SizeChanged += OnSizeChanged;
             DataContext = MainWindowViewModel.Instance;
             MainWindowViewModel.Instance.Owner = this;
             InitializeComponent();
-            LayoutTransform = new ScaleTransform(1.5, 1.5);
+            Zoom = 1;
+            LayoutTransform = new ScaleTransform(Zoom, Zoom);
         }
 
         public void ShowMenu()
@@ -64,6 +76,9 @@ namespace MyWMS
                 case TabViewType.Salesman:
                     ViewControl.SelectedItem = SalemanTab;
                     break;
+                case TabViewType.Customer:
+                    ViewControl.SelectedItem = CustomerTab;
+                    break;
                 case TabViewType.Keeper:
                     ViewControl.SelectedItem = KeeperTab;
                     break;
@@ -73,7 +88,7 @@ namespace MyWMS
                 default:
                     break;
             }
-            ViewControl.FindChild<TabView>().Init(p);
+            ViewControl.FindVisualChildren<TabView>().FirstOrDefault()?.Init(p);
         }
     }
 }

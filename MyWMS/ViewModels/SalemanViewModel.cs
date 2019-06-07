@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using MyWMS.Helpers;
+using MyWMS.Models;
+using MyWMS.Views;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using MyWMS.Helpers;
-using MyWMS.Models;
-using MyWMS.Views;
 
 namespace MyWMS.ViewModels
 {
@@ -19,10 +19,10 @@ namespace MyWMS.ViewModels
         public ICommand UpdateCommand { get; set; }
         public ICommand ResetCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
-        public ICommand ToDetailCommand { get; set; }
+        public ICommand ToDealCommand { get; set; }
         #endregion
 
-        private SalemanView owner;
+        private readonly SalemanView owner;
         public SalemanViewModel(SalemanView owner)
         {
             this.owner = owner;
@@ -30,7 +30,7 @@ namespace MyWMS.ViewModels
             UpdateCommand = DelegateCommand.Create(Update);
             ResetCommand = DelegateCommand.Create(o => InitAsync());
             DeleteCommand = DelegateCommand.Create(Delete);
-            ToDetailCommand = DelegateCommand.Create(owner.ToDeal);
+            ToDealCommand = DelegateCommand.Create(owner.ToDeal);
         }
 
         public async void InitAsync()
@@ -61,7 +61,7 @@ namespace MyWMS.ViewModels
                 {
                     if (i.Id != 0)
                     {
-                        db.Salesmen.Update(i);
+                        db.Salesmen.Update(db, i);
                     }
                     else
                     {
@@ -87,7 +87,7 @@ namespace MyWMS.ViewModels
                     var i = Salemen.Where(a => a.Id == id).FirstOrDefault();
                     int index = Salemen.IndexOf(i);
                     i.Available = false;
-                    db.Salesmen.Update(i);
+                    db.Salesmen.Update(db, i);
                     db.SaveChanges();
                     owner.Dispatcher.Invoke(() =>
                     {

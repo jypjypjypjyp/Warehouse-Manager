@@ -46,7 +46,7 @@ namespace MyWMS.ViewModels
 
         #endregion
 
-        private KeeperInfoView owner;
+        private readonly KeeperInfoView owner;
         public KeeperInfoViewModel(KeeperInfoView owner)
         {
             this.owner = owner;
@@ -55,16 +55,16 @@ namespace MyWMS.ViewModels
         public void Init()
         {
             Id = MainWindowViewModel.Instance.CurKeeper.Id;
-            Name = MainWindowViewModel.Instance.CurKeeper.Name;
-            Contact = MainWindowViewModel.Instance.CurKeeper.Contact;
+            SetProperty(ref _Name, MainWindowViewModel.Instance.CurKeeper.Name, "Name");
+            SetProperty(ref _Contact, MainWindowViewModel.Instance.CurKeeper.Contact, "Contact");
         }
 
         private void Update()
         {
-            Task.Run(()=> 
+            Task.Run(() =>
             {
                 using var db = MyDbContext.Instance;
-                db.Keepers.Update(MainWindowViewModel.Instance.CurKeeper);
+                db.Keepers.Update(db, MainWindowViewModel.Instance.CurKeeper);
                 db.Entry(MainWindowViewModel.Instance.CurKeeper)
                 .Property(x => x.Password).IsModified = false;
                 db.SaveChanges();

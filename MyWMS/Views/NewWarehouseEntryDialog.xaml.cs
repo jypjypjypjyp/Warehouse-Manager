@@ -15,7 +15,7 @@ namespace MyWMS.Views
             using var db = MyDbContext.Instance;
             foreach (var i in db.Items)
             {
-                if(i.Available)
+                if (i.Available)
                     Items.Add(i);
             }
             InitializeComponent();

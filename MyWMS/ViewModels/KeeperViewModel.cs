@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using MyWMS.Helpers;
+using MyWMS.Models;
+using MyWMS.Views;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using MyWMS.Helpers;
-using MyWMS.Models;
-using MyWMS.Views;
 
 namespace MyWMS.ViewModels
 {

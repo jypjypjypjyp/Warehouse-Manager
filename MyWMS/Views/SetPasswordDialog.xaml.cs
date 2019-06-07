@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MyWMS.Helpers;
 using MyWMS.ViewModels;
 using System.Windows;
 
@@ -22,13 +23,13 @@ namespace MyWMS.Views
             if (OldPassword.Password != i.Password)
                 goto Failed;
             i.Password = NewPassword.Password;
-            db.Keepers.Update(i);
+            db.Keepers.Update(db, i);
             db.SaveChanges();
             MainWindowViewModel.Instance.StatusText = "修改成功！";
             Close();
             return;
-            Failed:
-                new InfoDialog("密码错误！", false).Show();
+        Failed:
+            new InfoDialog("密码错误！", false).Show();
         }
     }
 }

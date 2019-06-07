@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <helpers:BooleanToInOrOutConverter x:Key="BooleanToInOrOutConverter"/>
     </UserControl.Resources>
+    
     <Canvas Name="DetailCanvas">
         <Rectangle Canvas.Left="0" Canvas.Top="0" Visibility="Collapsed"
                    Name="BackDrop" Fill="Gray" Opacity="0.5"
@@ -21,9 +22,10 @@
         <views:DealDetail Visibility="Collapsed"
               x:Name="DealDetail" Background="AliceBlue" Panel.ZIndex="200"
               Style="{StaticResource ControlVisibilityWipeStyle}"/>
-        
-        <DockPanel Margin="5,5,5,5">
-            <DockPanel DockPanel.Dock="Top" Height="85" >
+
+        <DockPanel Width="{Binding Parent.ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+              Height="{Binding Parent.ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" >
+            <DockPanel DockPanel.Dock="Top" Height="72" >
                 <StackPanel DockPanel.Dock="Left" Height="50" VerticalAlignment="Top" Orientation="Horizontal">
                     <Image VerticalAlignment="Center"
                Source="/Resources/Images/item.png"/>
@@ -31,29 +33,39 @@
                 </StackPanel>
 
                 <StackPanel DockPanel.Dock="Right">
-                    <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
-                        <Label Content="仓库" FontSize="24"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="仓库" FontSize="20"/>
                         <metro:SplitButton ItemsSource="{Binding Warehouses}"
                                    SelectedItem="{Binding SelectedWarehouse}"
                                    HorizontalContentAlignment="Left"
                                    HorizontalAlignment="Center"
                                    VerticalContentAlignment="Center"
-                                   Width="150" FontSize="20" Height="40"
+                                   Width="120" FontSize="18" Height="32"
                                    VerticalAlignment="Center" />
-                        <Label Content="销售人员" FontSize="24"/>
+                        <Label Content="销售员" FontSize="20"/>
                         <metro:SplitButton ItemsSource="{Binding Salesmen}"
                                    SelectedItem="{Binding SelectedSalesman}"
                                    HorizontalContentAlignment="Left"
                                    HorizontalAlignment="Center"
                                    VerticalContentAlignment="Center"
-                                   Width="150" FontSize="20" Height="40"
+                                   Width="120" FontSize="18" Height="32"
                                    VerticalAlignment="Center" />
+                        <Label Content="客户" FontSize="20"/>
+                        <metro:SplitButton ItemsSource="{Binding Customers}"
+                                   SelectedItem="{Binding SelectedCustomer}"
+                                   HorizontalContentAlignment="Left"
+                                   HorizontalAlignment="Center"
+                                   VerticalContentAlignment="Center"
+                                   Width="120" FontSize="18" Height="32"
+                                   VerticalAlignment="Center" />
+                        <Button Command="{Binding ClearFilterCommand}"
+                                Content="清楚筛选" FontSize="15" Height="32" Margin="10,0,0,0"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
-                        <Label Content="日期范围：从" FontSize="24"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="日期范围：从" FontSize="20"/>
                         <DatePicker SelectedDate="{Binding FromDateTime}" Height="32" FontSize="18"
                             VerticalAlignment = "Center"/>
-                        <Label Content="到" FontSize="24"/>
+                        <Label Content="到" FontSize="20"/>
                         <DatePicker SelectedDate="{Binding ToDateTime}" Height="32" FontSize="18"
                             VerticalAlignment = "Center"/>
                     </StackPanel>
@@ -62,9 +74,14 @@
             </DockPanel>
 
             <DockPanel DockPanel.Dock="Bottom">
-                <Button DockPanel.Dock="Left" Height="40" Width="100" Margin="10,0,0,0"
-                Command="{Binding AddCommand}"
-                Content="新建交易" FontSize="20"/>
+                <DockPanel LastChildFill="False">
+                    <Button DockPanel.Dock="Left" Height="40" Width="100" Margin="5,0,0,5"
+                            Command="{Binding AddCommand}"
+                            Content="新建交易" FontSize="20"/>
+                    <Button DockPanel.Dock="right" Height="40" Width="100" Margin="5,0,0,5"
+                            Command="{Binding ToSumCommand}"
+                            Content="统计" FontSize="20"/>
+                </DockPanel>
             </DockPanel>
 
             <DataGrid AutoGenerateColumns="False" CanUserAddRows="True"
@@ -73,7 +90,8 @@
                     <DataGridTextColumn Header="订单Id" Binding="{Binding Id}" FontSize="20"/>
                     <DataGridTextColumn Header="日期" Binding="{Binding Time}" FontSize="20"/>
                     <DataGridTextColumn Header="仓库Id" Binding="{Binding WarehouseId}" FontSize="20"/>
-                    <DataGridTextColumn Header="销售人员Id" Binding="{Binding SalesmanId}" FontSize="20"/>
+                    <DataGridTextColumn Header="销售员Id" Binding="{Binding SalesmanId}" FontSize="20"/>
+                    <DataGridTextColumn Header="客户Id" Binding="{Binding CustomerId}" FontSize="20"/>
                     <DataGridTextColumn Header="入/出库" Binding="{Binding InOrOut, Converter={StaticResource BooleanToInOrOutConverter}}" FontSize="20"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>

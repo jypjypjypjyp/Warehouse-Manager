@@ -1,10 +1,10 @@
 ﻿using MyWMS.Helpers;
-using System.Collections.ObjectModel;
 using MyWMS.Models;
 using MyWMS.Views;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MyWMS.ViewModels
@@ -59,7 +59,7 @@ namespace MyWMS.ViewModels
                 {
                     if (i.Id != 0)
                     {
-                        db.Items.Update(i);
+                        db.Items.Update(db, i);
                     }
                     else
                     {
@@ -85,7 +85,7 @@ namespace MyWMS.ViewModels
                     var i = Items.Where(a => a.Id == id).FirstOrDefault();
                     int index = Items.IndexOf(i);
                     i.Available = false;
-                    db.Items.Update(i);
+                    db.Items.Update(db, i);
                     db.SaveChanges();
                     owner.Dispatcher.Invoke(() =>
                     {

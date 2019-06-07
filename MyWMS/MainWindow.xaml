@@ -21,8 +21,7 @@
                    VerticalAlignment="Center"/>
         <metro:MetroAnimatedSingleRowTabControl
                 Name="ViewControl"
-                Style="{StaticResource ControlVisibilityWipeStyle}"
-                Visibility="{Binding ShowMenu ,Converter={StaticResource BooleanToVisibilityConverter}}">
+                Style="{StaticResource ControlVisibilityWipeStyle}">
             <TabItem Name="WarehouseTab" Header="仓库">
                 <TabItem.ContentTemplate>
                     <DataTemplate>
@@ -48,6 +47,13 @@
                 <TabItem.ContentTemplate>
                     <DataTemplate>
                         <views:SalemanView/>
+                    </DataTemplate>
+                </TabItem.ContentTemplate>
+            </TabItem>
+            <TabItem Name="CustomerTab" Header="客户" >
+                <TabItem.ContentTemplate>
+                    <DataTemplate>
+                        <views:CustomerView/>
                     </DataTemplate>
                 </TabItem.ContentTemplate>
             </TabItem>

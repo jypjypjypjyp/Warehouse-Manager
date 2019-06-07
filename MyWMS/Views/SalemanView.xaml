@@ -30,7 +30,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Command="{Binding Path=DataContext.ToDetailCommand, RelativeSource= {RelativeSource FindAncestor, AncestorType={x:Type helpers:TabView}}}" 
+                            <Button Command="{Binding Path=DataContext.ToDealCommand, RelativeSource= {RelativeSource FindAncestor, AncestorType={x:Type helpers:TabView}}}" 
                                     CommandParameter="{Binding Id}"  Content="订单"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

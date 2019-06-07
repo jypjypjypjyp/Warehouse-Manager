@@ -3,32 +3,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     TextElement.FontSize="20"
-    TextElement.FontFamily="YaHei"
     Title="请等待" 
     SizeToContent="WidthAndHeight" 
     ShowInTaskbar="False"
     WindowStartupLocation="CenterOwner"
     ResizeMode="NoResize">
-    <Grid>
+    <Grid Margin="5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="180" />
             <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="5" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
             <RowDefinition Height="30" />
-            <RowDefinition Height="5" />
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="1" Grid.ColumnSpan="5" Content="正在处理中..."/>
-        <ProgressBar Grid.Row="3" Grid.Column="1" 
+        <Label Grid.Row="0" Grid.ColumnSpan="3" Content="正在处理中..."/>
+        <ProgressBar Grid.Row="2" Grid.Column="0" 
             x:Name="ProgressBar" IsIndeterminate="True" />
-        <Button Grid.Row="3" Grid.Column="3"
+        <Button Grid.Row="2" Grid.Column="2"
             x:Name="CancelBtn" Width="70" Height="30" Content="取消"
             Click="Cancel_Click" />
     </Grid>

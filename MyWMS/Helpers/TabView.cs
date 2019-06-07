@@ -8,7 +8,7 @@ namespace MyWMS.Helpers
     }
     public enum TabViewType
     {
-        Warehouse, Deal, Item, Salesman, Keeper, KeeperInfo
+        Warehouse, Deal, Item, Salesman, Customer, Keeper, KeeperInfo
     }
     public abstract class TabView : UserControl, ITabView
     {

@@ -1,0 +1,55 @@
+﻿<metro:MetroWindow x:Class="MyWMS.Views.DeliverDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:views="clr-namespace:MyWMS.Views"
+        Title="转库"
+        SizeToContent="WidthAndHeight" 
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid Margin="10,5,10,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="转库" FontSize="20"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+            <Label Content="从" VerticalAlignment="Center" FontSize="20"/>
+            <metro:SplitButton Name="FromWarehosueSplitBtn"
+                HorizontalContentAlignment="Left"
+                HorizontalAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="150" FontSize="20" Height="40"
+                ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type views:DeliverDialog}}, Path=Warehouses}"
+                VerticalAlignment="Center" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
+            <Label Content="到" VerticalAlignment="Center" FontSize="20"/>
+            <metro:SplitButton Name="ToWarehouseSplitBtn"
+                HorizontalContentAlignment="Left"
+                HorizontalAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="150" FontSize="20" Height="40"
+                ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type views:DeliverDialog}}, Path=Warehouses}"
+                VerticalAlignment="Center" />
+        </StackPanel>
+
+        <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" 
+                Margin="50,0,50,0" Click="Button_Click"
+                Content="确认" FontSize="20"/>
+
+    </Grid>
+</metro:MetroWindow>

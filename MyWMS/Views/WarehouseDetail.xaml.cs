@@ -31,12 +31,9 @@ namespace MyWMS.Views
             new NewWarehouseEntryDialog(this).Show();
         }
 
-        public void DataIncorrect()
+        private void Print_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            new InfoDialog("数量不能为复数！", true)
-            {
-                Cancel = () => VM.InitAsync(VM.Id)
-            }.Show();
+            new WarehousePrintDialog(this).Show();
         }
     }
 }

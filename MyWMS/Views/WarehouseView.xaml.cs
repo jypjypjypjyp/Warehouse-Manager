@@ -1,8 +1,8 @@
-﻿using MyWMS.ViewModels;
-using System.Windows.Controls;
+﻿using MyWMS.Helpers;
+using MyWMS.ViewModels;
 using System;
 using System.Windows;
-using MyWMS.Helpers;
+using System.Windows.Controls;
 
 namespace MyWMS.Views
 {
@@ -22,10 +22,11 @@ namespace MyWMS.Views
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Canvas.SetLeft(WarehouseDetail, 0.1/1.5 * MainWindowViewModel.Instance.Owner.RealTimeWidth);
-            Canvas.SetTop(WarehouseDetail, Math.Max(0.1/1.5 * MainWindowViewModel.Instance.Owner.RealTimeHeight - 50, 0));
-            WarehouseDetail.Width = 0.8/1.5 * MainWindowViewModel.Instance.Owner.RealTimeWidth;
-            WarehouseDetail.Height = 0.8/1.5 * MainWindowViewModel.Instance.Owner.RealTimeHeight;
+            var zoom = MainWindowViewModel.Instance.Owner.Zoom;
+            Canvas.SetLeft(WarehouseDetail, 0.1 / zoom * MainWindowViewModel.Instance.Owner.RealTimeWidth);
+            Canvas.SetTop(WarehouseDetail, Math.Max(0.1 / zoom * MainWindowViewModel.Instance.Owner.RealTimeHeight - 50, 0));
+            WarehouseDetail.Width = 0.8 / zoom * MainWindowViewModel.Instance.Owner.RealTimeWidth;
+            WarehouseDetail.Height = 0.8 / zoom * MainWindowViewModel.Instance.Owner.RealTimeHeight;
         }
 
         public void ToDetail(object p)

@@ -29,6 +29,7 @@
                 <DataGridTextColumn Header="商品名称" Binding="{Binding Name}" FontSize="20"/>
                 <DataGridTextColumn Header="规格" Binding="{Binding Specification}" FontSize="20"/>
                 <DataGridTextColumn Header="单位" Binding="{Binding Unit}" FontSize="20"/>
+                <DataGridTextColumn Header="装载量" Binding="{Binding Load}" FontSize="20"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
